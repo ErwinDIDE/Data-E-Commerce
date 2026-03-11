@@ -1,6 +1,7 @@
 import pandas as pd
+import sys 
 
-df = pd.read_csv("../data/processed/dataset_anonymized.csv")
+df = pd.read_csv(sys.stdin)
 
 # Remplacement des valeurs manquantes(valeurs nulles) par la médiane
 colonnes_a_corriger = ['PanierMoyen', 'MontantTotalAchats', 'FréquenceAchatMensuel']
@@ -49,11 +50,4 @@ std = df['MontantTotalAchats'].std()
 df['AnomalieTransaction'] = df['MontantTotalAchats'] > (mean + 3 * std)
 
 
-# Vérification finale
-print("\nDataset après nettoyage :")
-print(df.info())
-
-print("\nAperçu des données :")
-print(df.head())
-
-
+df.to_csv(sys.stdout, index=False)
