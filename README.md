@@ -20,6 +20,7 @@ identifier les valeurs manquantes
 analyser les distributions des variables
 détecter les anomalies ou incohérences
 Cette étape a permis de définir les transformations nécessaires pour le nettoyage des données.
+
 Étape 2 – Anonymisation des données
 Un script Python a été créé pour anonymiser les données sensibles.
 Fichier :
@@ -31,6 +32,7 @@ produire un fichier anonymisé :
 dataset_anonymized.csv
 Ce fichier est stocké dans :
 data/processed/
+
 Étape 3 – Nettoyage et transformation des données
 Un second script Python a été développé pour nettoyer et enrichir les données.
 Fichier :
@@ -64,6 +66,7 @@ Les transactions anormalement élevées sont détectées avec la règle :
 MontantTotalAchats > moyenne + 3 * écart-type
 Une colonne est créée :
 AnomalieTransaction
+
 Étape 4 – Automatisation avec Apache NiFi
 Le pipeline de traitement est automatisé avec Apache NiFi.
 Le flux utilise les processors suivants :
@@ -103,3 +106,7 @@ Visuels inclus:
 Tendances des achats en fonction du temps (Line Chart): cela montre l'évolution des achats clients en fonction du montant total des achats par mois
 
 Répartition des ventes par produits (Camembert): cela montre la part de chaque produit sur le montant total d'achat des produits
+
+Fréquence d'achats mensuels
+
+Panier moyen par client
