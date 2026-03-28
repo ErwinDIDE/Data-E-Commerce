@@ -1,4 +1,13 @@
+# Airflow
+airflow.db
+logs/
 __pycache__/
+*.pyc
+*.log
+
+.env/
+airflow_env/
+
 *.pyc
 .env
 data/processed/
