@@ -50,4 +50,4 @@ std = df['MontantTotalAchats'].std()
 df['AnomalieTransaction'] = df['MontantTotalAchats'] > (mean + 3 * std)
 
 
-df.to_csv("/opt/airflow/data/processed/data_nettoye_transforme.csv", index=False)
+df.to_csv("/opt/airflow/data/processed/dataset_nettoye_transforme.csv", index=False)

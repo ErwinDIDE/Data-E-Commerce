@@ -63,7 +63,9 @@ services:
 
   # --- JUPYTER NOTEBOOKS ---
   jupyter:
-    image: jupyter/datascience-notebook
+    build:
+      context: .
+      dockerfile: Dockerfile.jupyter 
     ports:
       - "8888:8888"
     volumes:

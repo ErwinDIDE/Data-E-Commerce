@@ -35,3 +35,10 @@ Thumbs.db
 
 # On force Git à suivre les fichiers .gitkeep
 !data/**/.gitkeep
+
+# --- Power BI ---
+*.pbix
+*.pbit
+*.pbip
+*.temp
+

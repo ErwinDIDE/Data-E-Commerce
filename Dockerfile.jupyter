@@ -1,0 +1,14 @@
+# Image de base optimisée pour la Data Science
+FROM jupyter/datascience-notebook:python-3.11
+
+# On passe en utilisateur root pour installer les dépendances si besoin
+USER root
+
+# Copie du fichier requirements
+COPY requirements.txt /tmp/requirements.txt
+
+# Installation des bibliothèques dans l'environnement Conda de Jupyter
+RUN pip install --no-cache-dir -r /tmp/requirements.txt
+
+# On repasse en utilisateur standard (jovyan) pour la sécurité
+USER jovyan
