@@ -26,6 +26,7 @@ docker-compose.override.yml
 # --- Données  ---
 data/raw/*.csv
 data/processed/*.csv
+data/output/*.csv
 data/logs/
 !data/.gitkeep
 
