@@ -1,7 +1,7 @@
 import pandas as pd
 import hashlib
 
-df = pd.read_csv("../data/raw/dataset_projet_ecommerce.csv")
+df = pd.read_csv("/opt/airflow/data/raw/dataset_projet_ecommerce.csv")
 
 # Creation de l'id pour chaque client
 df['client_id'] = df['ClientID'].astype('category').cat.codes
@@ -13,7 +13,7 @@ df['Nom'] = 'Client_' + df['client_id'].astype(str)
 client_mapping = df[['client_id', 'ClientID']].drop_duplicates()
 
 # Exporter du fichier mapping
-client_mapping.to_csv("../data/processed/client_mapping.csv", index=False)
+client_mapping.to_csv("/opt/airflow/data/processed/client_mapping.csv", index=False)
 
 # Agrégation des âges en tranches
 bins = [0, 30, 40, 50, 60, 100]
@@ -31,4 +31,4 @@ df = df.drop(columns=['NuméroCarteCrédit', 'Adresse', 'Téléphone'])
 print(df.head())
 
 # Export du CSV pour Power BI ou NiFi
-df.to_csv("../data/processed/dataset_anonymized.csv", index=False)
+df.to_csv("/opt/airflow/data/processed/dataset_anonymized.csv", index=False)

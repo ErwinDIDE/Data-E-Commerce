@@ -1,0 +1,76 @@
+version: '3.8'
+
+services:
+  # --- BASE DE DONNÉES ---
+  postgres:
+    image: postgres:13
+    environment:
+      - POSTGRES_USER=airflow
+      - POSTGRES_PASSWORD=airflow
+      - POSTGRES_DB=airflow
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  # --- APACHE NIFI ---
+  nifi:
+    image: apache/nifi:latest
+    container_name: ecommerce-nifi
+    ports:
+      - "8443:8443"
+    environment:
+      - SINGLE_USER_CREDENTIALS_USERNAME=admin
+      - SINGLE_USER_CREDENTIALS_PASSWORD=adminadminadmin
+    volumes:
+      - ./data:/opt/nifi/data
+
+# --- AIRFLOW WEBUI ---
+  airflow-webserver:
+    build: .
+    depends_on:
+      - postgres
+    environment:
+      - AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@postgres/airflow
+      - AIRFLOW__CORE__EXECUTOR=LocalExecutor
+      - AIRFLOW__CORE__LOAD_EXAMPLES=False
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./airflow/dags:/opt/airflow/dags
+      - ./logs:/opt/airflow/logs
+      - ./scripts:/opt/airflow/scripts
+      - ./data:/opt/airflow/data
+    # CETTE COMMANDE FAIT TOUT TOUTE SEULE :
+    command: >
+      bash -c "airflow db init &&
+      airflow users create --username admin --firstname admin --lastname admin --role Admin --email admin@example.com --password admin &&
+      airflow webserver"
+
+  # --- AIRFLOW SCHEDULER ---
+  airflow-scheduler:
+    build: .
+    depends_on:
+      - postgres
+    environment:
+      - AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@postgres/airflow
+      - AIRFLOW__CORE__EXECUTOR=LocalExecutor
+    volumes:
+      - ./airflow/dags:/opt/airflow/dags
+      - ./logs:/opt/airflow/logs
+      - ./scripts:/opt/airflow/scripts
+      - ./data:/opt/airflow/data
+    # Le scheduler attend juste que la DB soit prête
+    command: bash -c "sleep 10 && airflow scheduler"
+
+  # --- JUPYTER NOTEBOOKS ---
+  jupyter:
+    image: jupyter/datascience-notebook
+    ports:
+      - "8888:8888"
+    volumes:
+      - ./notebooks:/home/jovyan/work
+      - ./data:/home/jovyan/data
+    environment:
+      - JUPYTER_TOKEN=admin
+
+volumes:
+  postgres_data:

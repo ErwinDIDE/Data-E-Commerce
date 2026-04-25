@@ -1,14 +1,34 @@
-# Airflow
-airflow.db
-logs/
+# --- Python ---
 __pycache__/
-*.pyc
-*.log
-
-.env/
-airflow_env/
-
-*.pyc
+*.py[cod]
+*$py.class
+.venv/
+env/
+venv/
 .env
-data/processed/
-.ipynb_checkpoints/
+
+# --- Jupyter Notebooks ---
+.ipynb_checkpoints
+*/.ipynb_checkpoints/*
+
+# --- Airflow ---
+/logs/
+/plugins/
+airflow.cfg
+airflow.db
+unittests.cfg
+.webserver_config.py
+
+# --- Docker ---
+.docker/
+docker-compose.override.yml
+
+# --- Données  ---
+data/raw/*.csv
+data/processed/*.csv
+data/logs/
+!data/.gitkeep
+
+# --- OS spécifiques ---
+.DS_Store
+Thumbs.db

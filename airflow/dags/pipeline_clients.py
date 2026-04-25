@@ -5,15 +5,15 @@ import subprocess
 
 def anonymisation():
     subprocess.run([
-        "python3.11",
-        "../scripts/anonymisation.py"
-    ])
+        "python3.9",
+        "/opt/airflow/scripts/anonymisation.py"
+    ], check=True)
 
 def nettoyage_transformation():
     subprocess.run([
-        "python3.11",
-        "../scripts/nettoyage_transformation.py"
-    ])
+        "python3.9",
+        "/opt/airflow/scripts/nettoyage_transformation.py"
+    ], check=True)
 
 with DAG(
     dag_id="pipeline_clients_etl",

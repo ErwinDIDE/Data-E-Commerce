@@ -1,7 +1,7 @@
 import pandas as pd
 import sys 
 
-df = pd.read_csv(sys.stdin)
+df = pd.read_csv("/opt/airflow/data/processed/dataset_anonymized.csv")
 
 # Remplacement des valeurs manquantes(valeurs nulles) par la médiane
 colonnes_a_corriger = ['PanierMoyen', 'MontantTotalAchats', 'FréquenceAchatMensuel']
@@ -50,4 +50,4 @@ std = df['MontantTotalAchats'].std()
 df['AnomalieTransaction'] = df['MontantTotalAchats'] > (mean + 3 * std)
 
 
-df.to_csv(sys.stdout, index=False)
+df.to_csv("/opt/airflow/data/processed/data_nettoye_transforme.csv", index=False)
