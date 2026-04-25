@@ -32,3 +32,6 @@ data/logs/
 # --- OS spécifiques ---
 .DS_Store
 Thumbs.db
+
+# On force Git à suivre les fichiers .gitkeep
+!data/**/.gitkeep
